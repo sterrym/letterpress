@@ -26,11 +26,13 @@ module Letterpress
     options.symbolize_keys!
 
     letterpress_options = {
+      :command_path => options.delete(:command_path),
       :background_color => options.delete(:background_color),
       :transparent => options.delete(:transparent),
       :fill => options.delete(:color),
       :size => options.delete(:size),
       :density => options.delete(:density),
+      :units => options.delete(:units),
       :body => text,
       :format => (options.delete(:format) || Config.image_format).to_s
     }

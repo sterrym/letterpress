@@ -28,6 +28,13 @@ File format used to render the image (can be anything ImageMagick supports):
   Default:
     'png'
 
+Path to your imagemagick installation (if you're images aren't generating, this may be why):
+    Letterpress::Config.command_path
+  Default:
+    nil
+  Example:
+    Letterpress::Config.singleton_options[:command_path] = "/opt/local/bin"
+
 A hash of default, site-wide parameters.  The options passed into individual calls to the
 letterpress() method are merged into this, overwriting these defaults:
     Letterpress::Config.singleton_options

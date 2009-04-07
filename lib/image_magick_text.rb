@@ -40,11 +40,19 @@ class ImageMagickText
     command = generate_convert_command
 
     Rails.logger.debug("Calling ImageMagick with command: #{command}")
-    self.size = %x(#{command}).scan(/\d+x\d+/).first
+    output = %x(#{command})
+    Rails.logger.debug("Command output: #{output}")
+    self.size = output.scan(/\d+x\d+/).first
+  end
+
+  def path_for_command(command)
+    command_path = @options.delete(:command_path)
+    path = [command_path, command].compact
+    File.join(*path)
   end
 
   def generate_convert_command
-    command = 'convert -verbose'
+    command = "#{path_for_command("convert")} -verbose"
     command += %Q( -background "#{@options[:background_color]}") if @options[:background_color]
     command += %Q( -font "#{@options[:font]}") if @options[:font]
     command += %Q( -transparent "#{@options[:transparent]}") if @options[:transparent]
